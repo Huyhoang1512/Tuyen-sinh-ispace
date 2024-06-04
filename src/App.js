@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import Home from "./page/Home/Home";
-import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
+import { HashRouter as Routes, Route, Navigate } from "react-router-dom";
 import AnNinhMang from "./page/AnNinhMang/AnNinhMang";
 import CEH from "./page/CEH/CEH";
 import AWS from "./page/AWS/AWS";
