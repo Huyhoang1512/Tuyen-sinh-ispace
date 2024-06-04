@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import Home from "./page/Home/Home";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { HashRouter as Routes, Route, Router } from "react-router-dom";
 import AnNinhMang from "./page/AnNinhMang/AnNinhMang";
 import CEH from "./page/CEH/CEH";
 import AWS from "./page/AWS/AWS";
@@ -12,8 +12,9 @@ import NotFound from "./page/404/NotFound";
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
+        <Route exact path="/" element={<Home />} />
         <Route path="/an-ninh-mang" element={<AnNinhMang />} />
         <Route path="/khoa-hoc-ceh" element={<CEH />} />
         <Route path="/khoa-hoc-aws" element={<AWS />} />
@@ -21,10 +22,9 @@ function App() {
         <Route path="/phat-trien-phan-mem" element={<PhatTrienPhanMem />} />
         <Route path="/thiet-ke-do-hoa" element={<ThietKeDoHoa />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/" element={<Navigate to="/home" />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
 
