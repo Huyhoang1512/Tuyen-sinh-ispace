@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/Tuyen-sinh-ispace/static/css/main.01c9ba7c.css",
-    "main.js": "/Tuyen-sinh-ispace/static/js/main.6fe22c00.js",
+    "main.js": "/Tuyen-sinh-ispace/static/js/main.1d622e14.js",
     "static/js/453.43968988.chunk.js": "/Tuyen-sinh-ispace/static/js/453.43968988.chunk.js",
     "index.html": "/Tuyen-sinh-ispace/index.html",
     "main.01c9ba7c.css.map": "/Tuyen-sinh-ispace/static/css/main.01c9ba7c.css.map",
-    "main.6fe22c00.js.map": "/Tuyen-sinh-ispace/static/js/main.6fe22c00.js.map",
+    "main.1d622e14.js.map": "/Tuyen-sinh-ispace/static/js/main.1d622e14.js.map",
     "453.43968988.chunk.js.map": "/Tuyen-sinh-ispace/static/js/453.43968988.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.01c9ba7c.css",
-    "static/js/main.6fe22c00.js"
+    "static/js/main.1d622e14.js"
   ]
 }
