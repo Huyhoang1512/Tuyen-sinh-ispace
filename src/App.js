@@ -14,15 +14,15 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route path="/an-ninh-mang" element={<AnNinhMang />} />
-        <Route path="/khoa-hoc-ceh" element={<CEH />} />
-        <Route path="/khoa-hoc-aws" element={<AWS />} />
-        <Route path="/dang-ky-ngay" element={<DangKyNgay />} />
-        <Route path="/phat-trien-phan-mem" element={<PhatTrienPhanMem />} />
-        <Route path="/thiet-ke-do-hoa" element={<ThietKeDoHoa />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="*" element={<NotFound />} />
+        <Route exact path="/an-ninh-mang" component={AnNinhMang} />
+        <Route exact path="/khoa-hoc-ceh" component={CEH} />
+        <Route exact path="/khoa-hoc-aws" component={AWS} />
+        <Route exact path="/dang-ky-ngay" component={DangKyNgay} />
+        <Route exact path="/phat-trien-phan-mem" component={PhatTrienPhanMem} />
+        <Route exact path="/thiet-ke-do-hoa" component={ThietKeDoHoa} />
+        <Route exact path="/home" component={Home} />
+        <Route exact path="/" component={Home} />
+        <Route component={NotFound} />
       </Routes>
     </Router>
   );
