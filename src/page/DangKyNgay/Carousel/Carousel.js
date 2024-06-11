@@ -10,32 +10,58 @@ export default function Carousel() {
     Program: "",
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState(null);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-  const scriptUrl =
-    "https://script.google.com/macros/s/AKfycby1kPe-aoysg5Kj9HZ6J7o9maO_Y18VSNt1vxwYOZL3FbkrlrMZb_JJF59V7ovpEw9DVg/exec";
+
+  // Updated API endpoint
+  const scriptUrl = "https://sheet.best/api/sheets/2cd626b2-0c71-450d-81ea-a9aad6841c17";
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setError(null);
+
+    // Basic validation
+    if (!formData.Name || !formData.Email || !formData.Phone || !formData.Target || !formData.Program) {
+      setError("Please fill in all required fields.");
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
       const response = await fetch(scriptUrl, {
         method: "POST",
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          "Content-Type": "application/json",
         },
-        body: new URLSearchParams(formData),
+        body: JSON.stringify(formData),
       });
-      const result = await response.text();
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
       alert("Form submitted successfully!");
+      setFormData({
+        Name: "",
+        Email: "",
+        Phone: "",
+        Target: "",
+        Program: "",
+      });
     } catch (error) {
       console.error("Error:", error);
-      alert("Failed to submit form. Please try again later.");
+      setError("Failed to submit form. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="">
+    <div>
       <div className="img-ech">
         <span className="bg-opacity-50"></span>
         <div className="container">
@@ -45,7 +71,7 @@ export default function Carousel() {
       <div
         className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6"
         style={{
-          width: `${window.innerWidth > 1024 ? "80%":"100%"}`, 
+          width: `${window.innerWidth > 1024 ? "80%" : "100%"}`,
           margin: "0 auto",
         }}
       >
@@ -61,9 +87,9 @@ export default function Carousel() {
                 width="640"
                 height="152"
                 src="https://ispace.edu.vn/wp-content/uploads/2020/09/logo-logo-01-1024x243.png"
-                class="attachment-large size-large wp-image-8936"
-                alt=""
-                srcset="https://ispace.edu.vn/wp-content/uploads/2020/09/logo-logo-01-1024x243.png 1024w, https://ispace.edu.vn/wp-content/uploads/2020/09/logo-logo-01-600x143.png 600w, https://ispace.edu.vn/wp-content/uploads/2020/09/logo-logo-01-e1661395790159.png 300w, https://ispace.edu.vn/wp-content/uploads/2020/09/logo-logo-01-768x183.png 768w, https://ispace.edu.vn/wp-content/uploads/2020/09/logo-logo-01-1536x365.png 1536w, https://ispace.edu.vn/wp-content/uploads/2020/09/logo-logo-01-2048x487.png 2048w"
+                className="attachment-large size-large wp-image-8936"
+                alt="Logo"
+                srcSet="https://ispace.edu.vn/wp-content/uploads/2020/09/logo-logo-01-1024x243.png 1024w, https://ispace.edu.vn/wp-content/uploads/2020/09/logo-logo-01-600x143.png 600w, https://ispace.edu.vn/wp-content/uploads/2020/09/logo-logo-01-e1661395790159.png 300w, https://ispace.edu.vn/wp-content/uploads/2020/09/logo-logo-01-768x183.png 768w, https://ispace.edu.vn/wp-content/uploads/2020/09/logo-logo-01-1536x365.png 1536w, https://ispace.edu.vn/wp-content/uploads/2020/09/logo-logo-01-2048x487.png 2048w"
                 sizes="(max-width: 640px) 100vw, 640px"
               />
             </li>
@@ -116,6 +142,11 @@ export default function Carousel() {
               <h3 className="text-white text-2xl font-bold mb-4">
                 Điền thông tin bên dưới
               </h3>
+              {error && (
+                <div className="bg-red-500 text-white p-2 mb-4 rounded">
+                  {error}
+                </div>
+              )}
               <form onSubmit={handleSubmit}>
                 <input
                   type="text"
@@ -177,7 +208,13 @@ export default function Carousel() {
                   <option value="Quản trị mạng">Quản trị mạng</option>
                   <option value="Thương mại điện tử">Thương mại điện tử</option>
                 </select>
-                <button type="submit" className="w-full p-3 rounded-md bg-orange-500 text-white font-bold hover:bg-orange-600 mt-3">Gửi ngay</button>
+                <button
+                  type="submit"
+                  className="w-full p-3 rounded-md bg-orange-500 text-white font-bold hover:bg-orange-600 mt-3"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Đang gửi..." : "Gửi ngay"}
+                </button>
               </form>
             </div>
           </div>
