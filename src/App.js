@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import Home from "./page/Home/Home";
+import Dashboard from './page/Dashboard/Dashboard';
 import AnNinhMang from "./page/AnNinhMang/AnNinhMang";
 import CEH from "./page/CEH/CEH";
 import AWS from "./page/AWS/AWS";
@@ -22,6 +23,7 @@ function App() {
         <Route path="/thiet-ke-do-hoa" element={<ThietKeDoHoa />} />
         <Route path="/home" element={<Home />} />
         <Route path="/" element={<Home />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
