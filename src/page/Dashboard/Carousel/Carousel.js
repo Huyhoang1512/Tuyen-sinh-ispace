@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Pie } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 const Dashboard = () => {
   const [data, setData] = useState([]);
@@ -21,34 +25,44 @@ const Dashboard = () => {
     fetchData();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (loading) return <p className="text-center mt-4">Loading...</p>;
+  if (error) return <p className="text-center mt-4 text-red-500">Error: {error}</p>;
+
+  const categories = data.reduce((acc, row) => {
+    const category = row.Program;
+    if (category in acc) {
+      acc[category]++;
+    } else {
+      acc[category] = 1;
+    }
+    return acc;
+  }, {});
+
+  const chartData = {
+    labels: Object.keys(categories),
+    datasets: [
+      {
+        data: Object.values(categories),
+        backgroundColor: [
+          '#FF6384',
+          '#36A2EB',
+          '#FFCE56',
+          '#4BC0C0',
+          '#9966FF',
+          '#FF9F40',
+        ],
+      },
+    ],
+  };
 
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
-      <table className="min-w-full bg-orange">
-        <thead>
-          <tr>
-            <th className="py-2 px-4 border-b border-gray-200 bg-gray">Họ Tên</th>
-            <th className="py-2 px-4 border-b border-gray-200 bg-gray">Email</th>
-            <th className="py-2 px-4 border-b border-gray-200 bg-gray">Số Điện Thoại</th>
-            <th className="py-2 px-4 border-b border-gray-200 bg-gray">Đối Tượng</th>
-            <th className="py-2 px-4 border-b border-gray-200 bg-gray">Khóa Học</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((row, index) => (
-            <tr key={index}>
-              <td className="py-2 px-4 border-b border-gray-200">{row.Name}</td>
-              <td className="py-2 px-4 border-b border-gray-200">{row.Email}</td>
-              <td className="py-2 px-4 border-b border-gray-200">{row.Phone}</td>
-              <td className="py-2 px-4 border-b border-gray-200">{row.Target}</td>
-              <td className="py-2 px-4 border-b border-gray-200">{row.Program}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="flex justify-center">
+        <div className="w-1/2">
+          <Pie data={chartData} />
+        </div>
+      </div>
     </div>
   );
 };
