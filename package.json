@@ -1,7 +1,7 @@
 {
   "name": "ispace-admission",
   "version": "0.1.0",
-  "homepage": "https://Huyhoang1512.github.io/Trang-tuyen-sinh-ispace",
+  "homepage": "https://Huyhoang1512.github.io/Tuyen-sinh-ispace",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
